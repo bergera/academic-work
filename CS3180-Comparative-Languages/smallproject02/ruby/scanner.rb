@@ -135,7 +135,9 @@ module Scanner
     ##
     # Discards any leading whitespace matching +/\s+/m+ while advancing the scanner.
     def skip_whitespace
-      match_token(:WHITESPACE) {} # throw away whitespace
+      match_token(:WHITESPACE) do
+        # throw away whitespace
+      end
     end
 
     ##
