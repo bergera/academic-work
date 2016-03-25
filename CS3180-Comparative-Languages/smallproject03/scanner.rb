@@ -23,6 +23,10 @@ module Scanner
       @symbol
     end
 
+    def to_a
+      [@symbol, nil]
+    end
+
     ##
     # Returns true if +other+ represents an instance of the same symbol.
     def ==(other)
@@ -48,6 +52,10 @@ module Scanner
       "#{symbol}: #{@value}"
     end
 
+    def to_a
+      [@symbol, @value]
+    end
+
     ##
     # Returns true if +other+ represents the same symbol and has the same value.  
     def ==(other)
@@ -59,24 +67,18 @@ module Scanner
   # This class takes a string and tokenizes it for the following grammar. (Note:
   # fails fast with an +ERROR+ token in the event no match is found.)
   # 
-  # - a number is
-  #      one or more digits |
-  #      zero of more digits followed by a decimal point followed by one or more digits |
-  #      one or more digits followed by a decimal point followed by zero or more digits
-  # - a symbol is
-  #      one or more characters from the set [_A-Za-z] followed by zero or more characters from the set [_A-Za-z0-9]
-  # - a comment is
-  #      the literal string "//" followed by zero or more characters until the end of the line
-  # - an arithmetic operator is
-  #      + |
-  #      - |
-  #      * |
-  #      /  
-  # - a parenthesis is 
-  #      ( |
-  #      )
-  # - EOF is 
-  #    the literal end of input
+  # Note: this grammar avoids left recursion
+  # making it easier to support LL recursive descent parsing.
+  #
+  # <expr> ::= <term> ADD <expr>
+  #          | <term>
+  #
+  # <term> ::= <factor> MULTIPLY <term>
+  #          | <factor>
+  #
+  # <factor> ::= LPAREN <expr> RPAREN
+  #            | NUM
+  #
   class Tokenizer
 
     ##
@@ -85,10 +87,11 @@ module Scanner
       EOF:        /\A\z/,
       WHITESPACE: /\A(\s+)/,
       NUMBER:     /\A(\d*\.\d+|\d+\.\d*|\d+)/,
-      SYMBOL:     /\A([_A-Za-z]+[_A-Za-z0-9]*)/,
-      COMMENT:    /\A(\/\/.*)$/,
-      OPERATOR:   /\A([\+\-\*\\])/,
-      PAREN:      /\A([\(\)])/,
+      #SYMBOL:     /\A([_A-Za-z]+[_A-Za-z0-9]*)/,
+      #COMMENT:    /\A(\/\/.*)$/,
+      OPERATOR:   /\A([\+\*])/,
+      LPAREN:     /\A(\()/,
+      RPAREN:     /\A(\))/,
       ERROR:      /\A(.+)/
     }
 
@@ -125,10 +128,11 @@ module Scanner
     def next_token
       skip_whitespace
       return last_token_symbol if number_token
-      return last_token_symbol if symbol_token
-      return last_token_symbol if comment_token
+      #return last_token_symbol if symbol_token
+      #return last_token_symbol if comment_token
       return last_token_symbol if operator_token
-      return last_token_symbol if paren_token
+      return last_token_symbol if lparen_token
+      return last_token_symbol if rparen_token
       return last_token_symbol if error_token
     end
 
@@ -150,11 +154,11 @@ module Scanner
 
     ##
     # Matches SYMBOLs
-    def symbol_token; match_value_token(:SYMBOL); end
+    #def symbol_token; match_value_token(:SYMBOL); end
 
     ##
     # Matches COMMENTs
-    def comment_token; match_value_token(:COMMENT); end
+    #def comment_token; match_value_token(:COMMENT); end
 
     ##
     # Matches OPERATORs
@@ -162,7 +166,8 @@ module Scanner
 
     ##
     # Matches PARENs
-    def paren_token; match_value_token(:PAREN); end
+    def lparen_token; match_value_token(:LPAREN); end
+    def rparen_token; match_value_token(:RPAREN); end
     
     ##
     # Matches anything that wasn't matched, i.e. ERRORs.
