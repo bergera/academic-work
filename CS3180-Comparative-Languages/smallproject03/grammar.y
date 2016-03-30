@@ -1,15 +1,23 @@
+##
+# Andrew Berger
+# SmallProject03
+# CS 3180
+# Spring 2016
+#
+# Tested with Ruby v2.3.0
+
 class Parser
 
 token ADD MULTIPLY
 token LPAREN RPAREN
-token NUM
+token NUMBER
 
 prechigh
   left MULTIPLY
   left ADD
 preclow
 
-# expect
+expect 0
 
 rule
 
@@ -25,33 +33,37 @@ rule
 
   Factor:
     LPAREN Expr RPAREN      { result = val[1] }
-  | NUM                     { result = val[2] }
+  | NUMBER                  { result = ValueNode.new(val[0].value) }
   ;
 
 end
 
 ---- header
+##
+# Andrew Berger
+# SmallProject03
+# CS 3180
+# Spring 2016
+#
+# Tested with Ruby v2.3.0
+
+require "./scanner"
+require "./nodes"
+
 module SmallProject03
 
 ---- inner
 
   def parse(code)
-    # Uncomment the following line to enable grammar debugging, in combination
-    # with the -g flag in the Rake build task.
-    # @yydebug = true
-    @tokens = Scanner.new.tokenize(code)
+    @yydebug = true
+    @tokens = Scanner::Tokenizer.new.tokenize(code)
     do_parse
   end
 
   # Retrieve the next token from the list.
   def next_token
-    @tokens.shift.to_a
+    @tokens.shift
   end
-
-  # Raise a custom error class that knows about line numbers.
-  # def on_error(error_token_id, error_value, value_stack)
-  #   raise ParseError.new(token_to_str(error_token_id), error_value, value_stack)
-  # end
 
 ---- footer
 end
