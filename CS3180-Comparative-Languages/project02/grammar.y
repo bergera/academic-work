@@ -9,7 +9,7 @@
 class Parser
 
 token NUMBER SYMBOL STRING 
-token WHILE PRINT IF ELSE FUNCTION
+token WHILE PRINT IF ELSE FUNCTION CLASS CREATE
 token DESCRIBE
 
 prechigh
@@ -20,7 +20,7 @@ prechigh
   right "="
 preclow
 
-expect 12 # our Expr's produce potential conflicts, but don't really matter
+expect 14 # our Expr's produce potential conflicts, but don't really matter
 
 rule
 
@@ -38,7 +38,7 @@ rule
     ";"                              { result = Node.new }
   | Expr ";"                         { result = val[0] }
   | While                            { result = val[0] }
-  | Conditional
+  | Conditional                      { result = val[0] }
   | Block                            { result = val[0] }
   ;
 
@@ -63,10 +63,13 @@ rule
   | Expr "-" Expr                    { result = Node.new(value: val[1], children: [val[0], val[2]], proc: Node::Procs.operation_proc, type:"Operation") }
   | Expr "<" Expr                    { result = Node.new(value: val[1], children: [val[0], val[2]], proc: Node::Procs.operation_proc, type:"Operation") }
   | Expr ">" Expr                    { result = Node.new(value: val[1], children: [val[0], val[2]], proc: Node::Procs.operation_proc, type:"Operation") }
+  # | InstanceCreate                   { result = val[0] }
+  | Ternary                          { result = val[0] }
   | Print                            { result = val[0] }
   | Assignment                       { result = val[0] }
   | Value                            { result = val[0] }
-  | DESCRIBE { result = Node.new(type:"DescribeScope", proc: lambda { |node| node.scope_chain.tail.describe(0) }) }
+  # | ClassDef                         { result = val[0] }
+  | DESCRIBE { result = Node.new(type:"DescribeScope", proc: lambda { |node| node.scope_chain.describe(0) }) }
   ; 
 
   Print:
@@ -75,7 +78,7 @@ rule
 
   Assignment:
     SYMBOL "=" Expr                  { result = Node.new(value: val[0].value, children: val[2], proc: Node::Procs.symbol_assign_proc, type: "SymbolAssignment") }
-  | SYMBOL "=" Ternary               { result = Node.new(value: val[0].value, children: val[2], proc: Node::Procs.symbol_assign_proc, type: "SymbolAssignment") }
+  | InstanceMemberAssignment         { result = val[0] }
   ;
 
   Ternary:
@@ -86,20 +89,22 @@ rule
     "(" Expr ")"                     { result = val[1] }
   | Function                         { result = val[0] }
   | Invocation                       { result = val[0] }
+  | InstanceMemberAccess             { result = val[0] }
+  | ClassDef                         { result = val[0] }
   | NUMBER                           { result = Node.new(value: val[0].value, type: "NumberValue") }
   | STRING                           { result = Node.new(value: val[0].value, type: "StringValue") }
   | SYMBOL                           { result = Node.new(value: val[0].value, proc: Node::Procs.symbol_access_proc, type: "SymbolAccess") }
   ;
 
   Invocation:
-    Value "[" "]"                   { result = Node.new(children: val[0], proc: Node::Procs.function_invocation_proc, type: "FunctionInvocation") }
-  | Value "[" ExprList "]"          { result = Node.new(children: [val[0], val[2]], proc: Node::Procs.function_invocation_proc, type: "FunctionInvocation") }
+    Value "[" "]"                   { result = Node.new(children: val[0], proc: Node::Procs.invocation_proc, type: "Invocation") }
+  | Value "[" ExprList "]"          { result = Node.new(children: [val[0], val[2]], proc: Node::Procs.invocation_proc, type: "Invocation") }
   ;
 
   Function:
-    FUNCTION Block                   { result = Function.new(body: val[1]) }
-  | FUNCTION "[" "]" Block           { result = Function.new(body: val[3]) }
-  | FUNCTION "[" ExprList "]" Block  { result = Function.new(body: val[4], params: val[2]) }
+    FUNCTION Block                   { val[1].type = "FunctionBody"; result = Function.new(body: val[1]) }
+  | FUNCTION "[" "]" Block           { val[3].type = "FunctionBody"; result = Function.new(body: val[3]) }
+  | FUNCTION "[" ExprList "]" Block  { val[4].type = "FunctionBody"; result = Function.new(body: val[4], params: val[2]) }
   ;
 
   ExprList:
@@ -107,10 +112,28 @@ rule
   | ExprList "," Expr              { result = val[0] << val[2] }
   ;
 
-  # ClassDef:
-  #   CLASS SYMBOL
-  # | CLASS SYMBOL "[" SYMBOL "]"
+  ClassDef:
+    CLASS "{" "}"                          { result = ClassDef.new }
+  | CLASS "{" ClassBlock "}"               { result = ClassDef.new(body: val[2]) }
+  | CLASS "[" Value "]" "{" ClassBlock "}" { result = ClassDef.new(body: val[5], super_class: val[2]) }
+  ;
+
+  ClassBlock:
+    Assignment ";"                         { result = Node.new(children: val[0], proc: Node::Procs.statementlist_proc, type: "StatementList") }
+  | ClassBlock Assignment ";"              { val[0].add_child(val[1]); result = val[0] }
+  ;
+
+  # InstanceCreate:
+  #   CREATE Invocation                      { result = Node.new(children: val[1], proc: Node::Procs.instance_create_proc, type: "InstanceCreate") }
   # ;
+
+  InstanceMemberAccess:
+    Value "." SYMBOL                       { result = Node.new(value: val[2], children: val[0], proc: Node::Procs.instance_member_access_proc, type: "InstanceMemberAccess")}
+  ;
+
+  InstanceMemberAssignment:
+    Value "." SYMBOL "=" Expr              { result = Node.new(value: val[2], children: [val[0], val[4]], proc: Node::Procs.instance_member_assignment_proc, type: "InstanceMemberAssignment") }
+  ;
 
 end
 

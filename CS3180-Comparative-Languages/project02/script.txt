@@ -1,0 +1,33 @@
+pet = class {
+  _creator = function [name, age] {
+    _this.name = name;
+    _this.color = "Black";
+    _this.age = age;
+  };
+
+  speak = function { print _this.name; };
+
+  celebrate = function {
+    temp = _this.age;
+    function {
+      temp = temp + 1;
+      print "Today " + _this.name + " is this many years old: ";
+      print temp;
+    };
+  };
+};
+
+pip = pet ["pippa", 3];
+
+cat = class [pet] {
+  _creator = function [name] {
+    _super._creator[name, 3];
+  };
+
+  speak = function {
+    print "hi, my name is " + _this.name + " and I have " + _this.color + " fur";
+  };
+};
+
+pip2 = cat["Pippa the Cat"];
+

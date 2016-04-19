@@ -47,7 +47,7 @@ module Project02
         LITERAL:    /\A(.)/
       }
 
-      KEYWORDS = ["while", "print", "if", "else", "function", "describe"]
+      KEYWORDS = ["while", "print", "if", "else", "function", "describe", "class", "create"]
       # LITERALS = [";", "(", ")", "{", "}", "+", "-", "*", "/", "<", ">", "=", "?", ":"]
 
       attr_reader :tokens

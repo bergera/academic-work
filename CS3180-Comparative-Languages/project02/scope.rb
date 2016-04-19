@@ -8,7 +8,7 @@ module Project02
 
     attr_accessor :locals, :parent
 
-    def initialize(parent)
+    def initialize(parent=nil)
       @locals = Hash.new
       @parent = parent || self
     end
@@ -75,6 +75,7 @@ module Project02
     # Assigns symbol locally, regardless of whether it is defined elsewhere.
     def assign_local(symbol, value)
       @locals[symbol.to_sym] = value
+      value
     end
 
     ##
@@ -101,8 +102,8 @@ module Project02
 
     attr_accessor :tail
 
-    def initialize(scope)
-      @tail = scope || Scope.new(nil)
+    def initialize(scope=nil)
+      @tail = Scope.new(scope)
     end
 
     ##
