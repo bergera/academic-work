@@ -31,14 +31,10 @@ module Project02
 
     ##
     # For debugging, prints a nice indented tree of Scopes.
-    def describe(depth)
-      if depth == 0
-        puts "\n##### SCOPE CHAIN (tail first)"
-      end
-
+    def describe(depth=0)
       prefix = ""
       depth.times { prefix += " " }
-      puts "#{prefix}#{self}: #{@locals.keys}"
+      puts "#{prefix}Scope: #{@locals.keys}"
 
       parent.describe(depth + 1) unless self == @parent
     end
@@ -74,6 +70,7 @@ module Project02
     ##
     # Assigns symbol locally, regardless of whether it is defined elsewhere.
     def assign_local(symbol, value)
+      # binding.pry
       @locals[symbol.to_sym] = value
       value
     end
@@ -94,7 +91,29 @@ module Project02
 
       return value
     end
-  end
+
+    ##
+    # Overwrite symbol at all points along the Scope chain.
+    def overwrite(symbol, value)
+      symbol = symbol.to_sym
+      scope = resolve(symbol)
+
+      # nothing to overwrite?
+      if scope.nil?
+        # puts ":: overwrite found nothing"
+        return nil
+      end
+
+      # puts ":: overwrite #{symbol} at Scope:#{scope.object_id}"
+
+      # overwrite the first location found
+      scope.assign_local(symbol, value)
+
+      # check up the list if we need to
+      scope.parent.overwrite(symbol, value) if scope.parent != scope
+    end
+
+  end # end Scope
 
   ##
   # A convenience class for managing a linked list of Scopes.
@@ -103,7 +122,7 @@ module Project02
     attr_accessor :tail
 
     def initialize(scope=nil)
-      @tail = Scope.new(scope)
+      @tail = scope || Scope.new
     end
 
     ##
@@ -121,27 +140,9 @@ module Project02
     end
 
     ##
-    # Resolve a symbol starting from the tail.
-    def resolve(symbol)
-      @tail.resolve(symbol)
-    end
-
-    ##
-    # Access a symbol starting from the tail.
-    def access(symbol)
-      @tail.access(symbol)
-    end
-
-    ##
-    # Assign a symbol starting from the tail.
-    def assign(symbol, value)
-      @tail.assign(symbol, value)
-    end
-
-    ##
-    # Describe the list starting from the tail.
-    def describe
-      @tail.describe(0)
+    # Delegate methods to the @tail scope.
+    def method_missing(method, *arguments, &block)
+      @tail.send(method, *arguments)
     end
 
     ##
@@ -149,6 +150,7 @@ module Project02
     def deep_dup
       return ScopeChain.new(@tail.deep_dup)
     end
-  end
+
+  end # end ScopeChain
 
 end

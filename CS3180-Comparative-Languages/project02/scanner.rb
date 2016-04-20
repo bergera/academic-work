@@ -40,7 +40,7 @@ module Project02
       REGEXP = {
         EOF:        /\A\z/,
         WHITESPACE: /\A(\s+)/,
-        NUMBER:     /\A(\d*\.\d+|\d+\.\d*|\d+)/,
+        NUMBER:     /\A([\-\+]?)(\d*\.\d+|\d+\.\d*|\d+)/,
         SYMBOL:     /\A([_A-Za-z]+[_A-Za-z0-9]*)/,
         COMMENT:    /\A(\/\/.*)$/,
         STRING:     /\A(""|''|"(.*?)[^\\]"|'(.*?)[^\\]')/,

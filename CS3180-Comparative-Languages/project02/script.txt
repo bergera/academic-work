@@ -1,33 +1,93 @@
-pet = class {
-  _creator = function [name, age] {
-    _this.name = name;
-    _this.color = "Black";
-    _this.age = age;
-  };
+// Everything is anonymous except variables.
+// Function invocation and object instantiation by variable access only.
 
-  speak = function { print _this.name; };
+foo = function {}; // a do-nothing function
+print foo[]; // =>
 
-  celebrate = function {
-    temp = _this.age;
-    function {
-      temp = temp + 1;
-      print "Today " + _this.name + " is this many years old: ";
-      print temp;
-    };
+// a function with a body
+bar = function { print "Hello, world!"; };
+bar[]; // => Hello, world!
+
+// a function with parameter
+baz = function [qux] { qux + 1; };
+print baz[5]; // => 6.0 (all numbers are Floats)
+
+// closures
+foo = 10;
+bar = function { foo; };
+print bar[]; // => 10.0
+print foo = 0;
+print bar[]; // => 10.0
+
+// currying with inner functions and closures
+make_adder = function [value] {
+  function [a] {
+    a + value;
   };
 };
+add5 = make_adder[5];
+print add5[10]; // => 15.0
 
-pip = pet ["pippa", 3];
+// string concatenation
+comma = ", ";
+print "Hello" + comma + "world!";
 
-cat = class [pet] {
-  _creator = function [name] {
-    _super._creator[name, 3];
+// Class with constructor, instance variables.
+// Only functions can be defined as direct class members.
+animal = class {
+  _creator = function[species, sound] {
+    _this.species = species;
+    _this.sound = sound;
   };
 
   speak = function {
-    print "hi, my name is " + _this.name + " and I have " + _this.color + " fur";
+    i = 0;
+    while i < 5 { print _this.sound + " "; i = i + 1; }
   };
 };
 
-pip2 = cat["Pippa the Cat"];
+// instantiation
+wolf = animal["wolf", "howl"];
+print wolf.species; // => wolf
+print wolf.sound; // => howl
+wolf.speak[]; // => howl
+wolf.sound = "hooooowl";
+wolf.speak[]; // => hooooowl
 
+// inheritance
+cat = class [animal] {
+  _creator = function [name, isFriendly] {
+    _super._creator["cat", "meow"];
+    _this.name = name;
+    _this.isFriendly = isFriendly;
+    _this.sleeping = 1;
+  };
+
+  // overwriting super class function
+  speak = function {
+    if _this.isFriendly {
+      print _this.name + "says: ";
+      _super.speak[];
+    } else {
+      print "GO AWAY";
+    };
+  };
+
+  sleep = function { _this.sleeping = 1; };
+  wake_up = function { _this.sleeping = 0; };
+};
+
+// subclass instantiation
+mycat = cat["Mrs. Dr. Razorclaw", 1];
+mycat.speak[]; // nothing, my cat is asleep
+mycat.speak[]; // => Mrs. Dr. Razorclaw says meow
+mycat.isFriendly = 0;
+mycat.speak[]; // => GO AWAY
+
+// polymorphism
+poly_speak = function [instance] {
+  instance.speak[];
+};
+
+poly_speak[wolf]; // => hooooowl
+poly_speak[mycat]; // => GO AWAY

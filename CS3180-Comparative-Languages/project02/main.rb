@@ -40,9 +40,9 @@ module Project02
       # parse the input
       root_node = Parser.new.parse(input)
       
-      puts "\n##### PARSE TREE"
-      root_node.describe(0)
-      print "\n"
+      # puts "\n##### PARSE TREE"
+      # root_node.describe(0)
+      # print "\n"
 
       # evalute the tree
       # byebug

@@ -1,5 +1,5 @@
-state 46 contains 7 shift/reduce conflicts
-state 90 contains 7 shift/reduce conflicts
+state 49 contains 7 shift/reduce conflicts
+state 93 contains 7 shift/reduce conflicts
 
 
 -------- Grammar --------
@@ -28,33 +28,35 @@ rule 21 Expr: Ternary
 rule 22 Expr: Print
 rule 23 Expr: Assignment
 rule 24 Expr: Value
-rule 25 Expr: DESCRIBE
-rule 26 Print: PRINT Expr
-rule 27 Assignment: SYMBOL "=" Expr
-rule 28 Assignment: InstanceMemberAssignment
-rule 29 Ternary: Expr "?" Expr ":" Expr
-rule 30 Value: "(" Expr ")"
-rule 31 Value: Function
-rule 32 Value: Invocation
-rule 33 Value: InstanceMemberAccess
-rule 34 Value: ClassDef
-rule 35 Value: NUMBER
-rule 36 Value: STRING
-rule 37 Value: SYMBOL
-rule 38 Invocation: Value "[" "]"
-rule 39 Invocation: Value "[" ExprList "]"
-rule 40 Function: FUNCTION Block
-rule 41 Function: FUNCTION "[" "]" Block
-rule 42 Function: FUNCTION "[" ExprList "]" Block
-rule 43 ExprList: Expr
-rule 44 ExprList: ExprList "," Expr
-rule 45 ClassDef: CLASS "{" "}"
-rule 46 ClassDef: CLASS "{" ClassBlock "}"
-rule 47 ClassDef: CLASS "[" Value "]" "{" ClassBlock "}"
-rule 48 ClassBlock: Assignment ";"
-rule 49 ClassBlock: ClassBlock Assignment ";"
-rule 50 InstanceMemberAccess: Value "." SYMBOL
-rule 51 InstanceMemberAssignment: Value "." SYMBOL "=" Expr
+rule 25 Expr: Describe
+rule 26 Describe: DESCRIBE
+rule 27 Describe: DESCRIBE Value
+rule 28 Print: PRINT Expr
+rule 29 Assignment: SYMBOL "=" Expr
+rule 30 Assignment: InstanceMemberAssignment
+rule 31 Ternary: Expr "?" Expr ":" Expr
+rule 32 Value: "(" Expr ")"
+rule 33 Value: Function
+rule 34 Value: Invocation
+rule 35 Value: InstanceMemberAccess
+rule 36 Value: ClassDef
+rule 37 Value: NUMBER
+rule 38 Value: STRING
+rule 39 Value: SYMBOL
+rule 40 Invocation: Value "[" "]"
+rule 41 Invocation: Value "[" ExprList "]"
+rule 42 Function: FUNCTION Block
+rule 43 Function: FUNCTION "[" "]" Block
+rule 44 Function: FUNCTION "[" ExprList "]" Block
+rule 45 ExprList: Expr
+rule 46 ExprList: ExprList "," Expr
+rule 47 ClassDef: CLASS "{" "}"
+rule 48 ClassDef: CLASS "{" ClassBlock "}"
+rule 49 ClassDef: CLASS "[" Value "]" "{" ClassBlock "}"
+rule 50 ClassBlock: Assignment ";"
+rule 51 ClassBlock: ClassBlock Assignment ";"
+rule 52 InstanceMemberAccess: Value "." SYMBOL
+rule 53 InstanceMemberAssignment: Value "." SYMBOL "=" Expr
 
 ------- Symbols -------
 
@@ -67,7 +69,7 @@ rule 51 InstanceMemberAssignment: Value "." SYMBOL "=" Expr
     on right: 
     on left : 1 2
   Expr (33)
-    on right: 1 6 12 13 14 15 16 17 18 19 20 26 27 29 30 43 44 51
+    on right: 1 6 12 13 14 15 16 17 18 19 20 28 29 31 32 45 46 53
     on left : 15 16 17 18 19 20 21 22 23 24 25
   StatementList (34)
     on right: 2 4 11
@@ -82,93 +84,96 @@ rule 51 InstanceMemberAssignment: Value "." SYMBOL "=" Expr
     on right: 8
     on left : 13 14
   Block (38)
-    on right: 9 12 13 14 40 41 42
+    on right: 9 12 13 14 42 43 44
     on left : 10 11
   Ternary (39)
     on right: 21
-    on left : 29
+    on left : 31
   Print (40)
     on right: 22
-    on left : 26
+    on left : 28
   Assignment (41)
-    on right: 23 48 49
-    on left : 27 28
+    on right: 23 50 51
+    on left : 29 30
   Value (42)
-    on right: 24 38 39 47 50 51
-    on left : 30 31 32 33 34 35 36 37
-  InstanceMemberAssignment (43)
-    on right: 28
-    on left : 51
-  Function (44)
-    on right: 31
-    on left : 40 41 42
-  Invocation (45)
-    on right: 32
-    on left : 38 39
-  InstanceMemberAccess (46)
+    on right: 24 27 40 41 49 52 53
+    on left : 32 33 34 35 36 37 38 39
+  Describe (43)
+    on right: 25
+    on left : 26 27
+  InstanceMemberAssignment (44)
+    on right: 30
+    on left : 53
+  Function (45)
     on right: 33
-    on left : 50
-  ClassDef (47)
+    on left : 42 43 44
+  Invocation (46)
     on right: 34
-    on left : 45 46 47
-  ExprList (48)
-    on right: 39 42 44
-    on left : 43 44
-  ClassBlock (49)
-    on right: 46 47 49
-    on left : 48 49
+    on left : 40 41
+  InstanceMemberAccess (47)
+    on right: 35
+    on left : 52
+  ClassDef (48)
+    on right: 36
+    on left : 47 48 49
+  ExprList (49)
+    on right: 41 44 46
+    on left : 45 46
+  ClassBlock (50)
+    on right: 48 49 51
+    on left : 50 51
 
 **Terminals, with rules where they appear
 
   $end (0) 
   error (1) 
-  NUMBER (2) 35
-  SYMBOL (3) 27 37 50 51
-  STRING (4) 36
+  NUMBER (2) 37
+  SYMBOL (3) 29 39 52 53
+  STRING (4) 38
   WHILE (5) 12
-  PRINT (6) 26
+  PRINT (6) 28
   IF (7) 13 14
   ELSE (8) 14
-  FUNCTION (9) 40 41 42
-  CLASS (10) 45 46 47
+  FUNCTION (9) 42 43 44
+  CLASS (10) 47 48 49
   CREATE (11) 
-  DESCRIBE (12) 25
+  DESCRIBE (12) 26 27
   "*" (13) 15
   "/" (14) 16
   "+" (15) 17
   "-" (16) 18
   "<" (17) 19
   ">" (18) 20
-  "?" (19) 29
-  "=" (20) 27 51
-  ";" (21) 5 6 48 49
-  "{" (22) 10 11 45 46 47
-  "}" (23) 10 11 45 46 47
-  ":" (24) 29
-  "(" (25) 30
-  ")" (26) 30
-  "[" (27) 38 39 41 42 47
-  "]" (28) 38 39 41 42 47
-  "," (29) 44
-  "." (30) 50 51
+  "?" (19) 31
+  "=" (20) 29 53
+  ";" (21) 5 6 50 51
+  "{" (22) 10 11 47 48 49
+  "}" (23) 10 11 47 48 49
+  ":" (24) 31
+  "(" (25) 32
+  ")" (26) 32
+  "[" (27) 40 41 43 44 49
+  "]" (28) 40 41 43 44 49
+  "," (29) 46
+  "." (30) 52 53
 
 --------- State ---------
 
 state 0
 
 
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
   WHILE         shift, and go to state 10
-  PRINT         shift, and go to state 17
+  PRINT         shift, and go to state 18
   IF            shift, and go to state 11
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  DESCRIBE      shift, and go to state 16
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  DESCRIBE      shift, and go to state 17
   ";"           shift, and go to state 5
   "{"           shift, and go to state 9
-  "("           shift, and go to state 20
+  "("           shift, and go to state 21
 
   Program       go to state 1
   Expr          go to state 2
@@ -181,16 +186,17 @@ state 0
   Print         go to state 13
   Assignment    go to state 14
   Value         go to state 15
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
+  Describe      go to state 16
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
 
 state 1
 
 
-  $end          shift, and go to state 29
+  $end          shift, and go to state 30
 
 
 state 2
@@ -203,16 +209,16 @@ state 2
   18) Expr : Expr _ "-" Expr
   19) Expr : Expr _ "<" Expr
   20) Expr : Expr _ ">" Expr
-  29) Ternary : Expr _ "?" Expr ":" Expr
+  31) Ternary : Expr _ "?" Expr ":" Expr
 
-  "*"           shift, and go to state 31
-  "/"           shift, and go to state 32
-  "+"           shift, and go to state 33
-  "-"           shift, and go to state 34
-  "<"           shift, and go to state 35
-  ">"           shift, and go to state 36
-  "?"           shift, and go to state 37
-  ";"           shift, and go to state 30
+  "*"           shift, and go to state 32
+  "/"           shift, and go to state 33
+  "+"           shift, and go to state 34
+  "-"           shift, and go to state 35
+  "<"           shift, and go to state 36
+  ">"           shift, and go to state 37
+  "?"           shift, and go to state 38
+  ";"           shift, and go to state 31
   $default      reduce using rule 1 (Program)
 
 
@@ -221,22 +227,22 @@ state 3
    2) Program : StatementList _
    4) StatementList : StatementList _ Statement
 
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
   WHILE         shift, and go to state 10
-  PRINT         shift, and go to state 17
+  PRINT         shift, and go to state 18
   IF            shift, and go to state 11
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  DESCRIBE      shift, and go to state 16
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  DESCRIBE      shift, and go to state 17
   ";"           shift, and go to state 5
   "{"           shift, and go to state 9
-  "("           shift, and go to state 20
+  "("           shift, and go to state 21
   $default      reduce using rule 2 (Program)
 
-  Statement     go to state 38
-  Expr          go to state 39
+  Statement     go to state 39
+  Expr          go to state 40
   While         go to state 6
   Conditional   go to state 7
   Block         go to state 8
@@ -244,11 +250,12 @@ state 3
   Print         go to state 13
   Assignment    go to state 14
   Value         go to state 15
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
+  Describe      go to state 16
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
 
 state 4
 
@@ -290,23 +297,23 @@ state 9
   10) Block : "{" _ "}"
   11) Block : "{" _ StatementList "}"
 
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
   WHILE         shift, and go to state 10
-  PRINT         shift, and go to state 17
+  PRINT         shift, and go to state 18
   IF            shift, and go to state 11
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  DESCRIBE      shift, and go to state 16
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  DESCRIBE      shift, and go to state 17
   ";"           shift, and go to state 5
   "{"           shift, and go to state 9
-  "}"           shift, and go to state 41
-  "("           shift, and go to state 20
+  "}"           shift, and go to state 42
+  "("           shift, and go to state 21
 
   Statement     go to state 4
-  StatementList  go to state 40
-  Expr          go to state 39
+  StatementList  go to state 41
+  Expr          go to state 40
   While         go to state 6
   Conditional   go to state 7
   Block         go to state 8
@@ -314,60 +321,63 @@ state 9
   Print         go to state 13
   Assignment    go to state 14
   Value         go to state 15
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
+  Describe      go to state 16
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
 
 state 10
 
   12) While : WHILE _ Expr Block
 
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
-  PRINT         shift, and go to state 17
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  DESCRIBE      shift, and go to state 16
-  "("           shift, and go to state 20
-
-  Expr          go to state 42
-  Ternary       go to state 12
-  Print         go to state 13
-  Assignment    go to state 14
-  Value         go to state 15
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
-
-state 11
-
-  13) Conditional : IF _ Expr Block
-  14) Conditional : IF _ Expr Block ELSE Block
-
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
-  PRINT         shift, and go to state 17
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  DESCRIBE      shift, and go to state 16
-  "("           shift, and go to state 20
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
+  PRINT         shift, and go to state 18
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  DESCRIBE      shift, and go to state 17
+  "("           shift, and go to state 21
 
   Expr          go to state 43
   Ternary       go to state 12
   Print         go to state 13
   Assignment    go to state 14
   Value         go to state 15
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
+  Describe      go to state 16
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
+
+state 11
+
+  13) Conditional : IF _ Expr Block
+  14) Conditional : IF _ Expr Block ELSE Block
+
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
+  PRINT         shift, and go to state 18
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  DESCRIBE      shift, and go to state 17
+  "("           shift, and go to state 21
+
+  Expr          go to state 44
+  Ternary       go to state 12
+  Print         go to state 13
+  Assignment    go to state 14
+  Value         go to state 15
+  Describe      go to state 16
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
 
 state 12
 
@@ -393,339 +403,367 @@ state 14
 state 15
 
   24) Expr : Value _
-  38) Invocation : Value _ "[" "]"
-  39) Invocation : Value _ "[" ExprList "]"
-  50) InstanceMemberAccess : Value _ "." SYMBOL
-  51) InstanceMemberAssignment : Value _ "." SYMBOL "=" Expr
+  40) Invocation : Value _ "[" "]"
+  41) Invocation : Value _ "[" ExprList "]"
+  52) InstanceMemberAccess : Value _ "." SYMBOL
+  53) InstanceMemberAssignment : Value _ "." SYMBOL "=" Expr
 
-  "["           shift, and go to state 44
-  "."           shift, and go to state 45
+  "["           shift, and go to state 45
+  "."           shift, and go to state 46
   $default      reduce using rule 24 (Expr)
 
 
 state 16
 
-  25) Expr : DESCRIBE _
+  25) Expr : Describe _
 
   $default      reduce using rule 25 (Expr)
 
 
 state 17
 
-  26) Print : PRINT _ Expr
+  26) Describe : DESCRIBE _
+  27) Describe : DESCRIBE _ Value
 
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
-  PRINT         shift, and go to state 17
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  DESCRIBE      shift, and go to state 16
-  "("           shift, and go to state 20
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 48
+  STRING        shift, and go to state 27
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  "("           shift, and go to state 21
+  $default      reduce using rule 26 (Describe)
 
-  Expr          go to state 46
+  Value         go to state 47
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
+
+state 18
+
+  28) Print : PRINT _ Expr
+
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
+  PRINT         shift, and go to state 18
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  DESCRIBE      shift, and go to state 17
+  "("           shift, and go to state 21
+
+  Expr          go to state 49
   Ternary       go to state 12
   Print         go to state 13
   Assignment    go to state 14
   Value         go to state 15
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
-
-state 18
-
-  27) Assignment : SYMBOL _ "=" Expr
-  37) Value : SYMBOL _
-
-  "="           shift, and go to state 47
-  $default      reduce using rule 37 (Value)
-
+  Describe      go to state 16
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
 
 state 19
 
-  28) Assignment : InstanceMemberAssignment _
+  29) Assignment : SYMBOL _ "=" Expr
+  39) Value : SYMBOL _
 
-  $default      reduce using rule 28 (Assignment)
+  "="           shift, and go to state 50
+  $default      reduce using rule 39 (Value)
 
 
 state 20
 
-  30) Value : "(" _ Expr ")"
+  30) Assignment : InstanceMemberAssignment _
 
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
-  PRINT         shift, and go to state 17
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  DESCRIBE      shift, and go to state 16
-  "("           shift, and go to state 20
+  $default      reduce using rule 30 (Assignment)
 
-  Expr          go to state 48
+
+state 21
+
+  32) Value : "(" _ Expr ")"
+
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
+  PRINT         shift, and go to state 18
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  DESCRIBE      shift, and go to state 17
+  "("           shift, and go to state 21
+
+  Expr          go to state 51
   Ternary       go to state 12
   Print         go to state 13
   Assignment    go to state 14
   Value         go to state 15
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
-
-state 21
-
-  31) Value : Function _
-
-  $default      reduce using rule 31 (Value)
-
+  Describe      go to state 16
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
 
 state 22
 
-  32) Value : Invocation _
-
-  $default      reduce using rule 32 (Value)
-
-
-state 23
-
-  33) Value : InstanceMemberAccess _
+  33) Value : Function _
 
   $default      reduce using rule 33 (Value)
 
 
-state 24
+state 23
 
-  34) Value : ClassDef _
+  34) Value : Invocation _
 
   $default      reduce using rule 34 (Value)
 
 
-state 25
+state 24
 
-  35) Value : NUMBER _
+  35) Value : InstanceMemberAccess _
 
   $default      reduce using rule 35 (Value)
 
 
-state 26
+state 25
 
-  36) Value : STRING _
+  36) Value : ClassDef _
 
   $default      reduce using rule 36 (Value)
 
 
+state 26
+
+  37) Value : NUMBER _
+
+  $default      reduce using rule 37 (Value)
+
+
 state 27
 
-  40) Function : FUNCTION _ Block
-  41) Function : FUNCTION _ "[" "]" Block
-  42) Function : FUNCTION _ "[" ExprList "]" Block
+  38) Value : STRING _
 
-  "{"           shift, and go to state 9
-  "["           shift, and go to state 50
+  $default      reduce using rule 38 (Value)
 
-  Block         go to state 49
 
 state 28
 
-  45) ClassDef : CLASS _ "{" "}"
-  46) ClassDef : CLASS _ "{" ClassBlock "}"
-  47) ClassDef : CLASS _ "[" Value "]" "{" ClassBlock "}"
+  42) Function : FUNCTION _ Block
+  43) Function : FUNCTION _ "[" "]" Block
+  44) Function : FUNCTION _ "[" ExprList "]" Block
 
-  "{"           shift, and go to state 51
-  "["           shift, and go to state 52
+  "{"           shift, and go to state 9
+  "["           shift, and go to state 53
 
+  Block         go to state 52
 
 state 29
 
+  47) ClassDef : CLASS _ "{" "}"
+  48) ClassDef : CLASS _ "{" ClassBlock "}"
+  49) ClassDef : CLASS _ "[" Value "]" "{" ClassBlock "}"
 
-  $end          shift, and go to state 53
+  "{"           shift, and go to state 54
+  "["           shift, and go to state 55
 
 
 state 30
+
+
+  $end          shift, and go to state 56
+
+
+state 31
 
    6) Statement : Expr ";" _
 
   $default      reduce using rule 6 (Statement)
 
 
-state 31
+state 32
 
   15) Expr : Expr "*" _ Expr
 
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
-  PRINT         shift, and go to state 17
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  DESCRIBE      shift, and go to state 16
-  "("           shift, and go to state 20
-
-  Expr          go to state 54
-  Ternary       go to state 12
-  Print         go to state 13
-  Assignment    go to state 14
-  Value         go to state 15
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
-
-state 32
-
-  16) Expr : Expr "/" _ Expr
-
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
-  PRINT         shift, and go to state 17
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  DESCRIBE      shift, and go to state 16
-  "("           shift, and go to state 20
-
-  Expr          go to state 55
-  Ternary       go to state 12
-  Print         go to state 13
-  Assignment    go to state 14
-  Value         go to state 15
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
-
-state 33
-
-  17) Expr : Expr "+" _ Expr
-
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
-  PRINT         shift, and go to state 17
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  DESCRIBE      shift, and go to state 16
-  "("           shift, and go to state 20
-
-  Expr          go to state 56
-  Ternary       go to state 12
-  Print         go to state 13
-  Assignment    go to state 14
-  Value         go to state 15
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
-
-state 34
-
-  18) Expr : Expr "-" _ Expr
-
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
-  PRINT         shift, and go to state 17
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  DESCRIBE      shift, and go to state 16
-  "("           shift, and go to state 20
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
+  PRINT         shift, and go to state 18
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  DESCRIBE      shift, and go to state 17
+  "("           shift, and go to state 21
 
   Expr          go to state 57
   Ternary       go to state 12
   Print         go to state 13
   Assignment    go to state 14
   Value         go to state 15
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
+  Describe      go to state 16
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
 
-state 35
+state 33
 
-  19) Expr : Expr "<" _ Expr
+  16) Expr : Expr "/" _ Expr
 
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
-  PRINT         shift, and go to state 17
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  DESCRIBE      shift, and go to state 16
-  "("           shift, and go to state 20
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
+  PRINT         shift, and go to state 18
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  DESCRIBE      shift, and go to state 17
+  "("           shift, and go to state 21
 
   Expr          go to state 58
   Ternary       go to state 12
   Print         go to state 13
   Assignment    go to state 14
   Value         go to state 15
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
+  Describe      go to state 16
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
 
-state 36
+state 34
 
-  20) Expr : Expr ">" _ Expr
+  17) Expr : Expr "+" _ Expr
 
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
-  PRINT         shift, and go to state 17
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  DESCRIBE      shift, and go to state 16
-  "("           shift, and go to state 20
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
+  PRINT         shift, and go to state 18
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  DESCRIBE      shift, and go to state 17
+  "("           shift, and go to state 21
 
   Expr          go to state 59
   Ternary       go to state 12
   Print         go to state 13
   Assignment    go to state 14
   Value         go to state 15
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
+  Describe      go to state 16
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
 
-state 37
+state 35
 
-  29) Ternary : Expr "?" _ Expr ":" Expr
+  18) Expr : Expr "-" _ Expr
 
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
-  PRINT         shift, and go to state 17
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  DESCRIBE      shift, and go to state 16
-  "("           shift, and go to state 20
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
+  PRINT         shift, and go to state 18
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  DESCRIBE      shift, and go to state 17
+  "("           shift, and go to state 21
 
   Expr          go to state 60
   Ternary       go to state 12
   Print         go to state 13
   Assignment    go to state 14
   Value         go to state 15
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
+  Describe      go to state 16
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
+
+state 36
+
+  19) Expr : Expr "<" _ Expr
+
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
+  PRINT         shift, and go to state 18
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  DESCRIBE      shift, and go to state 17
+  "("           shift, and go to state 21
+
+  Expr          go to state 61
+  Ternary       go to state 12
+  Print         go to state 13
+  Assignment    go to state 14
+  Value         go to state 15
+  Describe      go to state 16
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
+
+state 37
+
+  20) Expr : Expr ">" _ Expr
+
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
+  PRINT         shift, and go to state 18
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  DESCRIBE      shift, and go to state 17
+  "("           shift, and go to state 21
+
+  Expr          go to state 62
+  Ternary       go to state 12
+  Print         go to state 13
+  Assignment    go to state 14
+  Value         go to state 15
+  Describe      go to state 16
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
 
 state 38
+
+  31) Ternary : Expr "?" _ Expr ":" Expr
+
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
+  PRINT         shift, and go to state 18
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  DESCRIBE      shift, and go to state 17
+  "("           shift, and go to state 21
+
+  Expr          go to state 63
+  Ternary       go to state 12
+  Print         go to state 13
+  Assignment    go to state 14
+  Value         go to state 15
+  Describe      go to state 16
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
+
+state 39
 
    4) StatementList : StatementList Statement _
 
   $default      reduce using rule 4 (StatementList)
 
 
-state 39
+state 40
 
    6) Statement : Expr _ ";"
   15) Expr : Expr _ "*" Expr
@@ -734,39 +772,39 @@ state 39
   18) Expr : Expr _ "-" Expr
   19) Expr : Expr _ "<" Expr
   20) Expr : Expr _ ">" Expr
-  29) Ternary : Expr _ "?" Expr ":" Expr
+  31) Ternary : Expr _ "?" Expr ":" Expr
 
-  "*"           shift, and go to state 31
-  "/"           shift, and go to state 32
-  "+"           shift, and go to state 33
-  "-"           shift, and go to state 34
-  "<"           shift, and go to state 35
-  ">"           shift, and go to state 36
-  "?"           shift, and go to state 37
-  ";"           shift, and go to state 30
+  "*"           shift, and go to state 32
+  "/"           shift, and go to state 33
+  "+"           shift, and go to state 34
+  "-"           shift, and go to state 35
+  "<"           shift, and go to state 36
+  ">"           shift, and go to state 37
+  "?"           shift, and go to state 38
+  ";"           shift, and go to state 31
 
 
-state 40
+state 41
 
    4) StatementList : StatementList _ Statement
   11) Block : "{" StatementList _ "}"
 
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
   WHILE         shift, and go to state 10
-  PRINT         shift, and go to state 17
+  PRINT         shift, and go to state 18
   IF            shift, and go to state 11
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  DESCRIBE      shift, and go to state 16
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  DESCRIBE      shift, and go to state 17
   ";"           shift, and go to state 5
   "{"           shift, and go to state 9
-  "}"           shift, and go to state 61
-  "("           shift, and go to state 20
+  "}"           shift, and go to state 64
+  "("           shift, and go to state 21
 
-  Statement     go to state 38
-  Expr          go to state 39
+  Statement     go to state 39
+  Expr          go to state 40
   While         go to state 6
   Conditional   go to state 7
   Block         go to state 8
@@ -774,20 +812,21 @@ state 40
   Print         go to state 13
   Assignment    go to state 14
   Value         go to state 15
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
+  Describe      go to state 16
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
 
-state 41
+state 42
 
   10) Block : "{" "}" _
 
   $default      reduce using rule 10 (Block)
 
 
-state 42
+state 43
 
   12) While : WHILE Expr _ Block
   15) Expr : Expr _ "*" Expr
@@ -796,20 +835,20 @@ state 42
   18) Expr : Expr _ "-" Expr
   19) Expr : Expr _ "<" Expr
   20) Expr : Expr _ ">" Expr
-  29) Ternary : Expr _ "?" Expr ":" Expr
+  31) Ternary : Expr _ "?" Expr ":" Expr
 
-  "*"           shift, and go to state 31
-  "/"           shift, and go to state 32
-  "+"           shift, and go to state 33
-  "-"           shift, and go to state 34
-  "<"           shift, and go to state 35
-  ">"           shift, and go to state 36
-  "?"           shift, and go to state 37
+  "*"           shift, and go to state 32
+  "/"           shift, and go to state 33
+  "+"           shift, and go to state 34
+  "-"           shift, and go to state 35
+  "<"           shift, and go to state 36
+  ">"           shift, and go to state 37
+  "?"           shift, and go to state 38
   "{"           shift, and go to state 9
 
-  Block         go to state 62
+  Block         go to state 65
 
-state 43
+state 44
 
   13) Conditional : IF Expr _ Block
   14) Conditional : IF Expr _ Block ELSE Block
@@ -819,107 +858,75 @@ state 43
   18) Expr : Expr _ "-" Expr
   19) Expr : Expr _ "<" Expr
   20) Expr : Expr _ ">" Expr
-  29) Ternary : Expr _ "?" Expr ":" Expr
+  31) Ternary : Expr _ "?" Expr ":" Expr
 
-  "*"           shift, and go to state 31
-  "/"           shift, and go to state 32
-  "+"           shift, and go to state 33
-  "-"           shift, and go to state 34
-  "<"           shift, and go to state 35
-  ">"           shift, and go to state 36
-  "?"           shift, and go to state 37
+  "*"           shift, and go to state 32
+  "/"           shift, and go to state 33
+  "+"           shift, and go to state 34
+  "-"           shift, and go to state 35
+  "<"           shift, and go to state 36
+  ">"           shift, and go to state 37
+  "?"           shift, and go to state 38
   "{"           shift, and go to state 9
 
-  Block         go to state 63
+  Block         go to state 66
 
-state 44
+state 45
 
-  38) Invocation : Value "[" _ "]"
-  39) Invocation : Value "[" _ ExprList "]"
+  40) Invocation : Value "[" _ "]"
+  41) Invocation : Value "[" _ ExprList "]"
 
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
-  PRINT         shift, and go to state 17
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  DESCRIBE      shift, and go to state 16
-  "("           shift, and go to state 20
-  "]"           shift, and go to state 65
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
+  PRINT         shift, and go to state 18
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  DESCRIBE      shift, and go to state 17
+  "("           shift, and go to state 21
+  "]"           shift, and go to state 68
 
-  Expr          go to state 64
+  Expr          go to state 67
   Ternary       go to state 12
   Print         go to state 13
   Assignment    go to state 14
   Value         go to state 15
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
-  ExprList      go to state 66
-
-state 45
-
-  50) InstanceMemberAccess : Value "." _ SYMBOL
-  51) InstanceMemberAssignment : Value "." _ SYMBOL "=" Expr
-
-  SYMBOL        shift, and go to state 67
-
+  Describe      go to state 16
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
+  ExprList      go to state 69
 
 state 46
 
-  15) Expr : Expr _ "*" Expr
-  16) Expr : Expr _ "/" Expr
-  17) Expr : Expr _ "+" Expr
-  18) Expr : Expr _ "-" Expr
-  19) Expr : Expr _ "<" Expr
-  20) Expr : Expr _ ">" Expr
-  26) Print : PRINT Expr _
-  29) Ternary : Expr _ "?" Expr ":" Expr
+  52) InstanceMemberAccess : Value "." _ SYMBOL
+  53) InstanceMemberAssignment : Value "." _ SYMBOL "=" Expr
 
-  "*"           shift, and go to state 31
-  "*"           [reduce using rule 26 (Print)]
-  "/"           shift, and go to state 32
-  "/"           [reduce using rule 26 (Print)]
-  "+"           shift, and go to state 33
-  "+"           [reduce using rule 26 (Print)]
-  "-"           shift, and go to state 34
-  "-"           [reduce using rule 26 (Print)]
-  "<"           shift, and go to state 35
-  "<"           [reduce using rule 26 (Print)]
-  ">"           shift, and go to state 36
-  ">"           [reduce using rule 26 (Print)]
-  "?"           shift, and go to state 37
-  "?"           [reduce using rule 26 (Print)]
-  $default      reduce using rule 26 (Print)
+  SYMBOL        shift, and go to state 70
 
 
 state 47
 
-  27) Assignment : SYMBOL "=" _ Expr
+  27) Describe : DESCRIBE Value _
+  40) Invocation : Value _ "[" "]"
+  41) Invocation : Value _ "[" ExprList "]"
+  52) InstanceMemberAccess : Value _ "." SYMBOL
 
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
-  PRINT         shift, and go to state 17
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  DESCRIBE      shift, and go to state 16
-  "("           shift, and go to state 20
+  "["           shift, and go to state 45
+  "."           shift, and go to state 71
+  $default      reduce using rule 27 (Describe)
 
-  Expr          go to state 68
-  Ternary       go to state 12
-  Print         go to state 13
-  Assignment    go to state 14
-  Value         go to state 15
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
 
 state 48
+
+  39) Value : SYMBOL _
+
+  $default      reduce using rule 39 (Value)
+
+
+state 49
 
   15) Expr : Expr _ "*" Expr
   16) Expr : Expr _ "/" Expr
@@ -927,99 +934,153 @@ state 48
   18) Expr : Expr _ "-" Expr
   19) Expr : Expr _ "<" Expr
   20) Expr : Expr _ ">" Expr
-  29) Ternary : Expr _ "?" Expr ":" Expr
-  30) Value : "(" Expr _ ")"
+  28) Print : PRINT Expr _
+  31) Ternary : Expr _ "?" Expr ":" Expr
 
-  "*"           shift, and go to state 31
-  "/"           shift, and go to state 32
-  "+"           shift, and go to state 33
-  "-"           shift, and go to state 34
-  "<"           shift, and go to state 35
-  ">"           shift, and go to state 36
-  "?"           shift, and go to state 37
-  ")"           shift, and go to state 69
-
-
-state 49
-
-  40) Function : FUNCTION Block _
-
-  $default      reduce using rule 40 (Function)
+  "*"           shift, and go to state 32
+  "*"           [reduce using rule 28 (Print)]
+  "/"           shift, and go to state 33
+  "/"           [reduce using rule 28 (Print)]
+  "+"           shift, and go to state 34
+  "+"           [reduce using rule 28 (Print)]
+  "-"           shift, and go to state 35
+  "-"           [reduce using rule 28 (Print)]
+  "<"           shift, and go to state 36
+  "<"           [reduce using rule 28 (Print)]
+  ">"           shift, and go to state 37
+  ">"           [reduce using rule 28 (Print)]
+  "?"           shift, and go to state 38
+  "?"           [reduce using rule 28 (Print)]
+  $default      reduce using rule 28 (Print)
 
 
 state 50
 
-  41) Function : FUNCTION "[" _ "]" Block
-  42) Function : FUNCTION "[" _ ExprList "]" Block
+  29) Assignment : SYMBOL "=" _ Expr
 
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
-  PRINT         shift, and go to state 17
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  DESCRIBE      shift, and go to state 16
-  "("           shift, and go to state 20
-  "]"           shift, and go to state 70
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
+  PRINT         shift, and go to state 18
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  DESCRIBE      shift, and go to state 17
+  "("           shift, and go to state 21
 
-  Expr          go to state 64
+  Expr          go to state 72
   Ternary       go to state 12
   Print         go to state 13
   Assignment    go to state 14
   Value         go to state 15
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
-  ExprList      go to state 71
+  Describe      go to state 16
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
 
 state 51
 
-  45) ClassDef : CLASS "{" _ "}"
-  46) ClassDef : CLASS "{" _ ClassBlock "}"
+  15) Expr : Expr _ "*" Expr
+  16) Expr : Expr _ "/" Expr
+  17) Expr : Expr _ "+" Expr
+  18) Expr : Expr _ "-" Expr
+  19) Expr : Expr _ "<" Expr
+  20) Expr : Expr _ ">" Expr
+  31) Ternary : Expr _ "?" Expr ":" Expr
+  32) Value : "(" Expr _ ")"
 
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  "}"           shift, and go to state 73
-  "("           shift, and go to state 20
+  "*"           shift, and go to state 32
+  "/"           shift, and go to state 33
+  "+"           shift, and go to state 34
+  "-"           shift, and go to state 35
+  "<"           shift, and go to state 36
+  ">"           shift, and go to state 37
+  "?"           shift, and go to state 38
+  ")"           shift, and go to state 73
 
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
-  Value         go to state 72
-  ClassBlock    go to state 74
-  Assignment    go to state 75
 
 state 52
 
-  47) ClassDef : CLASS "[" _ Value "]" "{" ClassBlock "}"
+  42) Function : FUNCTION Block _
 
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 76
-  STRING        shift, and go to state 26
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  "("           shift, and go to state 20
+  $default      reduce using rule 42 (Function)
 
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
-  Value         go to state 77
 
 state 53
+
+  43) Function : FUNCTION "[" _ "]" Block
+  44) Function : FUNCTION "[" _ ExprList "]" Block
+
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
+  PRINT         shift, and go to state 18
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  DESCRIBE      shift, and go to state 17
+  "("           shift, and go to state 21
+  "]"           shift, and go to state 74
+
+  Expr          go to state 67
+  Ternary       go to state 12
+  Print         go to state 13
+  Assignment    go to state 14
+  Value         go to state 15
+  Describe      go to state 16
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
+  ExprList      go to state 75
+
+state 54
+
+  47) ClassDef : CLASS "{" _ "}"
+  48) ClassDef : CLASS "{" _ ClassBlock "}"
+
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  "}"           shift, and go to state 77
+  "("           shift, and go to state 21
+
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
+  Value         go to state 76
+  ClassBlock    go to state 78
+  Assignment    go to state 79
+
+state 55
+
+  49) ClassDef : CLASS "[" _ Value "]" "{" ClassBlock "}"
+
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 48
+  STRING        shift, and go to state 27
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  "("           shift, and go to state 21
+
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
+  Value         go to state 80
+
+state 56
 
 
   $default      accept
 
 
-state 54
+state 57
 
   15) Expr : Expr _ "*" Expr
   15) Expr : Expr "*" Expr _
@@ -1028,12 +1089,12 @@ state 54
   18) Expr : Expr _ "-" Expr
   19) Expr : Expr _ "<" Expr
   20) Expr : Expr _ ">" Expr
-  29) Ternary : Expr _ "?" Expr ":" Expr
+  31) Ternary : Expr _ "?" Expr ":" Expr
 
   $default      reduce using rule 15 (Expr)
 
 
-state 55
+state 58
 
   15) Expr : Expr _ "*" Expr
   16) Expr : Expr _ "/" Expr
@@ -1042,12 +1103,12 @@ state 55
   18) Expr : Expr _ "-" Expr
   19) Expr : Expr _ "<" Expr
   20) Expr : Expr _ ">" Expr
-  29) Ternary : Expr _ "?" Expr ":" Expr
+  31) Ternary : Expr _ "?" Expr ":" Expr
 
   $default      reduce using rule 16 (Expr)
 
 
-state 56
+state 59
 
   15) Expr : Expr _ "*" Expr
   16) Expr : Expr _ "/" Expr
@@ -1056,63 +1117,11 @@ state 56
   18) Expr : Expr _ "-" Expr
   19) Expr : Expr _ "<" Expr
   20) Expr : Expr _ ">" Expr
-  29) Ternary : Expr _ "?" Expr ":" Expr
+  31) Ternary : Expr _ "?" Expr ":" Expr
 
-  "*"           shift, and go to state 31
-  "/"           shift, and go to state 32
+  "*"           shift, and go to state 32
+  "/"           shift, and go to state 33
   $default      reduce using rule 17 (Expr)
-
-
-state 57
-
-  15) Expr : Expr _ "*" Expr
-  16) Expr : Expr _ "/" Expr
-  17) Expr : Expr _ "+" Expr
-  18) Expr : Expr _ "-" Expr
-  18) Expr : Expr "-" Expr _
-  19) Expr : Expr _ "<" Expr
-  20) Expr : Expr _ ">" Expr
-  29) Ternary : Expr _ "?" Expr ":" Expr
-
-  "*"           shift, and go to state 31
-  "/"           shift, and go to state 32
-  $default      reduce using rule 18 (Expr)
-
-
-state 58
-
-  15) Expr : Expr _ "*" Expr
-  16) Expr : Expr _ "/" Expr
-  17) Expr : Expr _ "+" Expr
-  18) Expr : Expr _ "-" Expr
-  19) Expr : Expr _ "<" Expr
-  19) Expr : Expr "<" Expr _
-  20) Expr : Expr _ ">" Expr
-  29) Ternary : Expr _ "?" Expr ":" Expr
-
-  "*"           shift, and go to state 31
-  "/"           shift, and go to state 32
-  "+"           shift, and go to state 33
-  "-"           shift, and go to state 34
-  $default      reduce using rule 19 (Expr)
-
-
-state 59
-
-  15) Expr : Expr _ "*" Expr
-  16) Expr : Expr _ "/" Expr
-  17) Expr : Expr _ "+" Expr
-  18) Expr : Expr _ "-" Expr
-  19) Expr : Expr _ "<" Expr
-  20) Expr : Expr _ ">" Expr
-  20) Expr : Expr ">" Expr _
-  29) Ternary : Expr _ "?" Expr ":" Expr
-
-  "*"           shift, and go to state 31
-  "/"           shift, and go to state 32
-  "+"           shift, and go to state 33
-  "-"           shift, and go to state 34
-  $default      reduce using rule 20 (Expr)
 
 
 state 60
@@ -1121,91 +1130,150 @@ state 60
   16) Expr : Expr _ "/" Expr
   17) Expr : Expr _ "+" Expr
   18) Expr : Expr _ "-" Expr
+  18) Expr : Expr "-" Expr _
   19) Expr : Expr _ "<" Expr
   20) Expr : Expr _ ">" Expr
-  29) Ternary : Expr _ "?" Expr ":" Expr
-  29) Ternary : Expr "?" Expr _ ":" Expr
+  31) Ternary : Expr _ "?" Expr ":" Expr
 
-  "*"           shift, and go to state 31
-  "/"           shift, and go to state 32
-  "+"           shift, and go to state 33
-  "-"           shift, and go to state 34
-  "<"           shift, and go to state 35
-  ">"           shift, and go to state 36
-  "?"           shift, and go to state 37
-  ":"           shift, and go to state 78
+  "*"           shift, and go to state 32
+  "/"           shift, and go to state 33
+  $default      reduce using rule 18 (Expr)
 
 
 state 61
+
+  15) Expr : Expr _ "*" Expr
+  16) Expr : Expr _ "/" Expr
+  17) Expr : Expr _ "+" Expr
+  18) Expr : Expr _ "-" Expr
+  19) Expr : Expr _ "<" Expr
+  19) Expr : Expr "<" Expr _
+  20) Expr : Expr _ ">" Expr
+  31) Ternary : Expr _ "?" Expr ":" Expr
+
+  "*"           shift, and go to state 32
+  "/"           shift, and go to state 33
+  "+"           shift, and go to state 34
+  "-"           shift, and go to state 35
+  $default      reduce using rule 19 (Expr)
+
+
+state 62
+
+  15) Expr : Expr _ "*" Expr
+  16) Expr : Expr _ "/" Expr
+  17) Expr : Expr _ "+" Expr
+  18) Expr : Expr _ "-" Expr
+  19) Expr : Expr _ "<" Expr
+  20) Expr : Expr _ ">" Expr
+  20) Expr : Expr ">" Expr _
+  31) Ternary : Expr _ "?" Expr ":" Expr
+
+  "*"           shift, and go to state 32
+  "/"           shift, and go to state 33
+  "+"           shift, and go to state 34
+  "-"           shift, and go to state 35
+  $default      reduce using rule 20 (Expr)
+
+
+state 63
+
+  15) Expr : Expr _ "*" Expr
+  16) Expr : Expr _ "/" Expr
+  17) Expr : Expr _ "+" Expr
+  18) Expr : Expr _ "-" Expr
+  19) Expr : Expr _ "<" Expr
+  20) Expr : Expr _ ">" Expr
+  31) Ternary : Expr _ "?" Expr ":" Expr
+  31) Ternary : Expr "?" Expr _ ":" Expr
+
+  "*"           shift, and go to state 32
+  "/"           shift, and go to state 33
+  "+"           shift, and go to state 34
+  "-"           shift, and go to state 35
+  "<"           shift, and go to state 36
+  ">"           shift, and go to state 37
+  "?"           shift, and go to state 38
+  ":"           shift, and go to state 81
+
+
+state 64
 
   11) Block : "{" StatementList "}" _
 
   $default      reduce using rule 11 (Block)
 
 
-state 62
+state 65
 
   12) While : WHILE Expr Block _
 
   $default      reduce using rule 12 (While)
 
 
-state 63
+state 66
 
   13) Conditional : IF Expr Block _
   14) Conditional : IF Expr Block _ ELSE Block
 
-  ELSE          shift, and go to state 79
+  ELSE          shift, and go to state 82
   $default      reduce using rule 13 (Conditional)
-
-
-state 64
-
-  15) Expr : Expr _ "*" Expr
-  16) Expr : Expr _ "/" Expr
-  17) Expr : Expr _ "+" Expr
-  18) Expr : Expr _ "-" Expr
-  19) Expr : Expr _ "<" Expr
-  20) Expr : Expr _ ">" Expr
-  29) Ternary : Expr _ "?" Expr ":" Expr
-  43) ExprList : Expr _
-
-  "*"           shift, and go to state 31
-  "/"           shift, and go to state 32
-  "+"           shift, and go to state 33
-  "-"           shift, and go to state 34
-  "<"           shift, and go to state 35
-  ">"           shift, and go to state 36
-  "?"           shift, and go to state 37
-  $default      reduce using rule 43 (ExprList)
-
-
-state 65
-
-  38) Invocation : Value "[" "]" _
-
-  $default      reduce using rule 38 (Invocation)
-
-
-state 66
-
-  39) Invocation : Value "[" ExprList _ "]"
-  44) ExprList : ExprList _ "," Expr
-
-  "]"           shift, and go to state 80
-  ","           shift, and go to state 81
 
 
 state 67
 
-  50) InstanceMemberAccess : Value "." SYMBOL _
-  51) InstanceMemberAssignment : Value "." SYMBOL _ "=" Expr
+  15) Expr : Expr _ "*" Expr
+  16) Expr : Expr _ "/" Expr
+  17) Expr : Expr _ "+" Expr
+  18) Expr : Expr _ "-" Expr
+  19) Expr : Expr _ "<" Expr
+  20) Expr : Expr _ ">" Expr
+  31) Ternary : Expr _ "?" Expr ":" Expr
+  45) ExprList : Expr _
 
-  "="           shift, and go to state 82
-  $default      reduce using rule 50 (InstanceMemberAccess)
+  "*"           shift, and go to state 32
+  "/"           shift, and go to state 33
+  "+"           shift, and go to state 34
+  "-"           shift, and go to state 35
+  "<"           shift, and go to state 36
+  ">"           shift, and go to state 37
+  "?"           shift, and go to state 38
+  $default      reduce using rule 45 (ExprList)
 
 
 state 68
+
+  40) Invocation : Value "[" "]" _
+
+  $default      reduce using rule 40 (Invocation)
+
+
+state 69
+
+  41) Invocation : Value "[" ExprList _ "]"
+  46) ExprList : ExprList _ "," Expr
+
+  "]"           shift, and go to state 83
+  ","           shift, and go to state 84
+
+
+state 70
+
+  52) InstanceMemberAccess : Value "." SYMBOL _
+  53) InstanceMemberAssignment : Value "." SYMBOL _ "=" Expr
+
+  "="           shift, and go to state 85
+  $default      reduce using rule 52 (InstanceMemberAccess)
+
+
+state 71
+
+  52) InstanceMemberAccess : Value "." _ SYMBOL
+
+  SYMBOL        shift, and go to state 86
+
+
+state 72
 
   15) Expr : Expr _ "*" Expr
   16) Expr : Expr _ "/" Expr
@@ -1213,299 +1281,239 @@ state 68
   18) Expr : Expr _ "-" Expr
   19) Expr : Expr _ "<" Expr
   20) Expr : Expr _ ">" Expr
-  27) Assignment : SYMBOL "=" Expr _
-  29) Ternary : Expr _ "?" Expr ":" Expr
+  29) Assignment : SYMBOL "=" Expr _
+  31) Ternary : Expr _ "?" Expr ":" Expr
 
-  "*"           shift, and go to state 31
-  "/"           shift, and go to state 32
-  "+"           shift, and go to state 33
-  "-"           shift, and go to state 34
-  "<"           shift, and go to state 35
-  ">"           shift, and go to state 36
-  "?"           shift, and go to state 37
-  $default      reduce using rule 27 (Assignment)
-
-
-state 69
-
-  30) Value : "(" Expr ")" _
-
-  $default      reduce using rule 30 (Value)
-
-
-state 70
-
-  41) Function : FUNCTION "[" "]" _ Block
-
-  "{"           shift, and go to state 9
-
-  Block         go to state 83
-
-state 71
-
-  42) Function : FUNCTION "[" ExprList _ "]" Block
-  44) ExprList : ExprList _ "," Expr
-
-  "]"           shift, and go to state 84
-  ","           shift, and go to state 81
-
-
-state 72
-
-  38) Invocation : Value _ "[" "]"
-  39) Invocation : Value _ "[" ExprList "]"
-  50) InstanceMemberAccess : Value _ "." SYMBOL
-  51) InstanceMemberAssignment : Value _ "." SYMBOL "=" Expr
-
-  "["           shift, and go to state 44
-  "."           shift, and go to state 45
+  "*"           shift, and go to state 32
+  "/"           shift, and go to state 33
+  "+"           shift, and go to state 34
+  "-"           shift, and go to state 35
+  "<"           shift, and go to state 36
+  ">"           shift, and go to state 37
+  "?"           shift, and go to state 38
+  $default      reduce using rule 29 (Assignment)
 
 
 state 73
 
-  45) ClassDef : CLASS "{" "}" _
+  32) Value : "(" Expr ")" _
 
-  $default      reduce using rule 45 (ClassDef)
+  $default      reduce using rule 32 (Value)
 
 
 state 74
 
-  46) ClassDef : CLASS "{" ClassBlock _ "}"
-  49) ClassBlock : ClassBlock _ Assignment ";"
+  43) Function : FUNCTION "[" "]" _ Block
 
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  "}"           shift, and go to state 85
-  "("           shift, and go to state 20
+  "{"           shift, and go to state 9
 
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
-  Value         go to state 72
-  Assignment    go to state 86
+  Block         go to state 87
 
 state 75
 
-  48) ClassBlock : Assignment _ ";"
+  44) Function : FUNCTION "[" ExprList _ "]" Block
+  46) ExprList : ExprList _ "," Expr
 
-  ";"           shift, and go to state 87
+  "]"           shift, and go to state 88
+  ","           shift, and go to state 84
 
 
 state 76
 
-  37) Value : SYMBOL _
+  40) Invocation : Value _ "[" "]"
+  41) Invocation : Value _ "[" ExprList "]"
+  52) InstanceMemberAccess : Value _ "." SYMBOL
+  53) InstanceMemberAssignment : Value _ "." SYMBOL "=" Expr
 
-  $default      reduce using rule 37 (Value)
+  "["           shift, and go to state 45
+  "."           shift, and go to state 46
 
 
 state 77
 
-  38) Invocation : Value _ "[" "]"
-  39) Invocation : Value _ "[" ExprList "]"
-  47) ClassDef : CLASS "[" Value _ "]" "{" ClassBlock "}"
-  50) InstanceMemberAccess : Value _ "." SYMBOL
+  47) ClassDef : CLASS "{" "}" _
 
-  "["           shift, and go to state 44
-  "]"           shift, and go to state 88
-  "."           shift, and go to state 89
+  $default      reduce using rule 47 (ClassDef)
 
 
 state 78
 
-  29) Ternary : Expr "?" Expr ":" _ Expr
+  48) ClassDef : CLASS "{" ClassBlock _ "}"
+  51) ClassBlock : ClassBlock _ Assignment ";"
 
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
-  PRINT         shift, and go to state 17
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  DESCRIBE      shift, and go to state 16
-  "("           shift, and go to state 20
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  "}"           shift, and go to state 89
+  "("           shift, and go to state 21
 
-  Expr          go to state 90
-  Ternary       go to state 12
-  Print         go to state 13
-  Assignment    go to state 14
-  Value         go to state 15
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
+  Value         go to state 76
+  Assignment    go to state 90
 
 state 79
 
-  14) Conditional : IF Expr Block ELSE _ Block
+  50) ClassBlock : Assignment _ ";"
 
-  "{"           shift, and go to state 9
+  ";"           shift, and go to state 91
 
-  Block         go to state 91
 
 state 80
 
-  39) Invocation : Value "[" ExprList "]" _
+  40) Invocation : Value _ "[" "]"
+  41) Invocation : Value _ "[" ExprList "]"
+  49) ClassDef : CLASS "[" Value _ "]" "{" ClassBlock "}"
+  52) InstanceMemberAccess : Value _ "." SYMBOL
 
-  $default      reduce using rule 39 (Invocation)
+  "["           shift, and go to state 45
+  "]"           shift, and go to state 92
+  "."           shift, and go to state 71
 
 
 state 81
 
-  44) ExprList : ExprList "," _ Expr
+  31) Ternary : Expr "?" Expr ":" _ Expr
 
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
-  PRINT         shift, and go to state 17
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  DESCRIBE      shift, and go to state 16
-  "("           shift, and go to state 20
-
-  Expr          go to state 92
-  Ternary       go to state 12
-  Print         go to state 13
-  Assignment    go to state 14
-  Value         go to state 15
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
-
-state 82
-
-  51) InstanceMemberAssignment : Value "." SYMBOL "=" _ Expr
-
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
-  PRINT         shift, and go to state 17
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  DESCRIBE      shift, and go to state 16
-  "("           shift, and go to state 20
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
+  PRINT         shift, and go to state 18
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  DESCRIBE      shift, and go to state 17
+  "("           shift, and go to state 21
 
   Expr          go to state 93
   Ternary       go to state 12
   Print         go to state 13
   Assignment    go to state 14
   Value         go to state 15
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
+  Describe      go to state 16
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
 
-state 83
+state 82
 
-  41) Function : FUNCTION "[" "]" Block _
-
-  $default      reduce using rule 41 (Function)
-
-
-state 84
-
-  42) Function : FUNCTION "[" ExprList "]" _ Block
+  14) Conditional : IF Expr Block ELSE _ Block
 
   "{"           shift, and go to state 9
 
   Block         go to state 94
 
+state 83
+
+  41) Invocation : Value "[" ExprList "]" _
+
+  $default      reduce using rule 41 (Invocation)
+
+
+state 84
+
+  46) ExprList : ExprList "," _ Expr
+
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
+  PRINT         shift, and go to state 18
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  DESCRIBE      shift, and go to state 17
+  "("           shift, and go to state 21
+
+  Expr          go to state 95
+  Ternary       go to state 12
+  Print         go to state 13
+  Assignment    go to state 14
+  Value         go to state 15
+  Describe      go to state 16
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
+
 state 85
 
-  46) ClassDef : CLASS "{" ClassBlock "}" _
+  53) InstanceMemberAssignment : Value "." SYMBOL "=" _ Expr
 
-  $default      reduce using rule 46 (ClassDef)
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
+  PRINT         shift, and go to state 18
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  DESCRIBE      shift, and go to state 17
+  "("           shift, and go to state 21
 
+  Expr          go to state 96
+  Ternary       go to state 12
+  Print         go to state 13
+  Assignment    go to state 14
+  Value         go to state 15
+  Describe      go to state 16
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
 
 state 86
 
-  49) ClassBlock : ClassBlock Assignment _ ";"
+  52) InstanceMemberAccess : Value "." SYMBOL _
 
-  ";"           shift, and go to state 95
+  $default      reduce using rule 52 (InstanceMemberAccess)
 
 
 state 87
 
-  48) ClassBlock : Assignment ";" _
+  43) Function : FUNCTION "[" "]" Block _
 
-  $default      reduce using rule 48 (ClassBlock)
+  $default      reduce using rule 43 (Function)
 
 
 state 88
 
-  47) ClassDef : CLASS "[" Value "]" _ "{" ClassBlock "}"
+  44) Function : FUNCTION "[" ExprList "]" _ Block
 
-  "{"           shift, and go to state 96
+  "{"           shift, and go to state 9
 
+  Block         go to state 97
 
 state 89
 
-  50) InstanceMemberAccess : Value "." _ SYMBOL
+  48) ClassDef : CLASS "{" ClassBlock "}" _
 
-  SYMBOL        shift, and go to state 97
+  $default      reduce using rule 48 (ClassDef)
 
 
 state 90
 
-  15) Expr : Expr _ "*" Expr
-  16) Expr : Expr _ "/" Expr
-  17) Expr : Expr _ "+" Expr
-  18) Expr : Expr _ "-" Expr
-  19) Expr : Expr _ "<" Expr
-  20) Expr : Expr _ ">" Expr
-  29) Ternary : Expr _ "?" Expr ":" Expr
-  29) Ternary : Expr "?" Expr ":" Expr _
+  51) ClassBlock : ClassBlock Assignment _ ";"
 
-  "*"           shift, and go to state 31
-  "*"           [reduce using rule 29 (Ternary)]
-  "/"           shift, and go to state 32
-  "/"           [reduce using rule 29 (Ternary)]
-  "+"           shift, and go to state 33
-  "+"           [reduce using rule 29 (Ternary)]
-  "-"           shift, and go to state 34
-  "-"           [reduce using rule 29 (Ternary)]
-  "<"           shift, and go to state 35
-  "<"           [reduce using rule 29 (Ternary)]
-  ">"           shift, and go to state 36
-  ">"           [reduce using rule 29 (Ternary)]
-  "?"           shift, and go to state 37
-  "?"           [reduce using rule 29 (Ternary)]
-  $default      reduce using rule 29 (Ternary)
+  ";"           shift, and go to state 98
 
 
 state 91
 
-  14) Conditional : IF Expr Block ELSE Block _
+  50) ClassBlock : Assignment ";" _
 
-  $default      reduce using rule 14 (Conditional)
+  $default      reduce using rule 50 (ClassBlock)
 
 
 state 92
 
-  15) Expr : Expr _ "*" Expr
-  16) Expr : Expr _ "/" Expr
-  17) Expr : Expr _ "+" Expr
-  18) Expr : Expr _ "-" Expr
-  19) Expr : Expr _ "<" Expr
-  20) Expr : Expr _ ">" Expr
-  29) Ternary : Expr _ "?" Expr ":" Expr
-  44) ExprList : ExprList "," Expr _
+  49) ClassDef : CLASS "[" Value "]" _ "{" ClassBlock "}"
 
-  "*"           shift, and go to state 31
-  "/"           shift, and go to state 32
-  "+"           shift, and go to state 33
-  "-"           shift, and go to state 34
-  "<"           shift, and go to state 35
-  ">"           shift, and go to state 36
-  "?"           shift, and go to state 37
-  $default      reduce using rule 44 (ExprList)
+  "{"           shift, and go to state 99
 
 
 state 93
@@ -1516,84 +1524,133 @@ state 93
   18) Expr : Expr _ "-" Expr
   19) Expr : Expr _ "<" Expr
   20) Expr : Expr _ ">" Expr
-  29) Ternary : Expr _ "?" Expr ":" Expr
-  51) InstanceMemberAssignment : Value "." SYMBOL "=" Expr _
+  31) Ternary : Expr _ "?" Expr ":" Expr
+  31) Ternary : Expr "?" Expr ":" Expr _
 
-  "*"           shift, and go to state 31
-  "/"           shift, and go to state 32
-  "+"           shift, and go to state 33
-  "-"           shift, and go to state 34
-  "<"           shift, and go to state 35
-  ">"           shift, and go to state 36
-  "?"           shift, and go to state 37
-  $default      reduce using rule 51 (InstanceMemberAssignment)
+  "*"           shift, and go to state 32
+  "*"           [reduce using rule 31 (Ternary)]
+  "/"           shift, and go to state 33
+  "/"           [reduce using rule 31 (Ternary)]
+  "+"           shift, and go to state 34
+  "+"           [reduce using rule 31 (Ternary)]
+  "-"           shift, and go to state 35
+  "-"           [reduce using rule 31 (Ternary)]
+  "<"           shift, and go to state 36
+  "<"           [reduce using rule 31 (Ternary)]
+  ">"           shift, and go to state 37
+  ">"           [reduce using rule 31 (Ternary)]
+  "?"           shift, and go to state 38
+  "?"           [reduce using rule 31 (Ternary)]
+  $default      reduce using rule 31 (Ternary)
 
 
 state 94
 
-  42) Function : FUNCTION "[" ExprList "]" Block _
+  14) Conditional : IF Expr Block ELSE Block _
 
-  $default      reduce using rule 42 (Function)
+  $default      reduce using rule 14 (Conditional)
 
 
 state 95
 
-  49) ClassBlock : ClassBlock Assignment ";" _
+  15) Expr : Expr _ "*" Expr
+  16) Expr : Expr _ "/" Expr
+  17) Expr : Expr _ "+" Expr
+  18) Expr : Expr _ "-" Expr
+  19) Expr : Expr _ "<" Expr
+  20) Expr : Expr _ ">" Expr
+  31) Ternary : Expr _ "?" Expr ":" Expr
+  46) ExprList : ExprList "," Expr _
 
-  $default      reduce using rule 49 (ClassBlock)
+  "*"           shift, and go to state 32
+  "/"           shift, and go to state 33
+  "+"           shift, and go to state 34
+  "-"           shift, and go to state 35
+  "<"           shift, and go to state 36
+  ">"           shift, and go to state 37
+  "?"           shift, and go to state 38
+  $default      reduce using rule 46 (ExprList)
 
 
 state 96
 
-  47) ClassDef : CLASS "[" Value "]" "{" _ ClassBlock "}"
+  15) Expr : Expr _ "*" Expr
+  16) Expr : Expr _ "/" Expr
+  17) Expr : Expr _ "+" Expr
+  18) Expr : Expr _ "-" Expr
+  19) Expr : Expr _ "<" Expr
+  20) Expr : Expr _ ">" Expr
+  31) Ternary : Expr _ "?" Expr ":" Expr
+  53) InstanceMemberAssignment : Value "." SYMBOL "=" Expr _
 
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  "("           shift, and go to state 20
+  "*"           shift, and go to state 32
+  "/"           shift, and go to state 33
+  "+"           shift, and go to state 34
+  "-"           shift, and go to state 35
+  "<"           shift, and go to state 36
+  ">"           shift, and go to state 37
+  "?"           shift, and go to state 38
+  $default      reduce using rule 53 (InstanceMemberAssignment)
 
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
-  Value         go to state 72
-  ClassBlock    go to state 98
-  Assignment    go to state 75
 
 state 97
 
-  50) InstanceMemberAccess : Value "." SYMBOL _
+  44) Function : FUNCTION "[" ExprList "]" Block _
 
-  $default      reduce using rule 50 (InstanceMemberAccess)
+  $default      reduce using rule 44 (Function)
 
 
 state 98
 
-  47) ClassDef : CLASS "[" Value "]" "{" ClassBlock _ "}"
-  49) ClassBlock : ClassBlock _ Assignment ";"
+  51) ClassBlock : ClassBlock Assignment ";" _
 
-  NUMBER        shift, and go to state 25
-  SYMBOL        shift, and go to state 18
-  STRING        shift, and go to state 26
-  FUNCTION      shift, and go to state 27
-  CLASS         shift, and go to state 28
-  "}"           shift, and go to state 99
-  "("           shift, and go to state 20
+  $default      reduce using rule 51 (ClassBlock)
 
-  InstanceMemberAssignment  go to state 19
-  Function      go to state 21
-  Invocation    go to state 22
-  InstanceMemberAccess  go to state 23
-  ClassDef      go to state 24
-  Value         go to state 72
-  Assignment    go to state 86
 
 state 99
 
-  47) ClassDef : CLASS "[" Value "]" "{" ClassBlock "}" _
+  49) ClassDef : CLASS "[" Value "]" "{" _ ClassBlock "}"
 
-  $default      reduce using rule 47 (ClassDef)
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  "("           shift, and go to state 21
+
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
+  Value         go to state 76
+  ClassBlock    go to state 100
+  Assignment    go to state 79
+
+state 100
+
+  49) ClassDef : CLASS "[" Value "]" "{" ClassBlock _ "}"
+  51) ClassBlock : ClassBlock _ Assignment ";"
+
+  NUMBER        shift, and go to state 26
+  SYMBOL        shift, and go to state 19
+  STRING        shift, and go to state 27
+  FUNCTION      shift, and go to state 28
+  CLASS         shift, and go to state 29
+  "}"           shift, and go to state 101
+  "("           shift, and go to state 21
+
+  InstanceMemberAssignment  go to state 20
+  Function      go to state 22
+  Invocation    go to state 23
+  InstanceMemberAccess  go to state 24
+  ClassDef      go to state 25
+  Value         go to state 76
+  Assignment    go to state 90
+
+state 101
+
+  49) ClassDef : CLASS "[" Value "]" "{" ClassBlock "}" _
+
+  $default      reduce using rule 49 (ClassDef)
 
