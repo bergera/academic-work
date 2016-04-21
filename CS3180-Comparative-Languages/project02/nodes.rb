@@ -1,5 +1,0 @@
-require "./nodes/procs"
-require "./nodes/node"
-require "./nodes/function"
-require "./nodes/klass"
-require "./nodes/instance"

@@ -1,15 +1,18 @@
 ##
 # Andrew Berger
-# Project02
+# Project03
 # CS 3180
 # Spring 2016
 #
 # Tested with Ruby v2.3.0
+#
+# Requires Racc to build.
+# https://github.com/tenderlove/racc
 
 class Parser
 
 token NUMBER SYMBOL STRING
-token WHILE PRINT IF ELSE FUNCTION CLASS CREATE
+token WHILE PRINT IF ELSE FUNCTION CLASS
 token DESCRIBE
 
 prechigh
@@ -85,7 +88,7 @@ rule
   ;
 
   Ternary:
-    Expr "?" Expr ":" Expr           { result = Node.new(children: [val[0], val[2], val[4]], type: :TernaryConditional) }
+    Expr "?" Expr ":" Expr           { result = Node.new(children: [val[0], val[2], val[4]], type: :Conditional) }
   ;
 
   Value:
@@ -139,16 +142,16 @@ end
 ---- header
 ##
 # Andrew Berger
-# Project02
+# Project03
 # CS 3180
 # Spring 2016
 #
 # Tested with Ruby v2.3.0
 
-require "./scanner"
-require "./nodes"
+require "./lib/scanner"
+require "./lib/nodes"
 
-module Project02
+module Project03
 
 ---- inner
 

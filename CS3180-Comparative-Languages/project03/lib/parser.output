@@ -62,64 +62,64 @@ rule 53 InstanceMemberAssignment: Value "." SYMBOL "=" Expr
 
 **Nonterminals, with rules where they appear
 
-  $start (31)
+  $start (30)
     on right: 
     on left : 
-  Program (32)
+  Program (31)
     on right: 
     on left : 1 2
-  Expr (33)
+  Expr (32)
     on right: 1 6 12 13 14 15 16 17 18 19 20 28 29 31 32 45 46 53
     on left : 15 16 17 18 19 20 21 22 23 24 25
-  StatementList (34)
+  StatementList (33)
     on right: 2 4 11
     on left : 3 4
-  Statement (35)
+  Statement (34)
     on right: 3 4
     on left : 5 6 7 8 9
-  While (36)
+  While (35)
     on right: 7
     on left : 12
-  Conditional (37)
+  Conditional (36)
     on right: 8
     on left : 13 14
-  Block (38)
+  Block (37)
     on right: 9 12 13 14 42 43 44
     on left : 10 11
-  Ternary (39)
+  Ternary (38)
     on right: 21
     on left : 31
-  Print (40)
+  Print (39)
     on right: 22
     on left : 28
-  Assignment (41)
+  Assignment (40)
     on right: 23 50 51
     on left : 29 30
-  Value (42)
+  Value (41)
     on right: 24 27 40 41 49 52 53
     on left : 32 33 34 35 36 37 38 39
-  Describe (43)
+  Describe (42)
     on right: 25
     on left : 26 27
-  InstanceMemberAssignment (44)
+  InstanceMemberAssignment (43)
     on right: 30
     on left : 53
-  Function (45)
+  Function (44)
     on right: 33
     on left : 42 43 44
-  Invocation (46)
+  Invocation (45)
     on right: 34
     on left : 40 41
-  InstanceMemberAccess (47)
+  InstanceMemberAccess (46)
     on right: 35
     on left : 52
-  ClassDef (48)
+  ClassDef (47)
     on right: 36
     on left : 47 48 49
-  ExprList (49)
+  ExprList (48)
     on right: 41 44 46
     on left : 45 46
-  ClassBlock (50)
+  ClassBlock (49)
     on right: 48 49 51
     on left : 50 51
 
@@ -136,26 +136,25 @@ rule 53 InstanceMemberAssignment: Value "." SYMBOL "=" Expr
   ELSE (8) 14
   FUNCTION (9) 42 43 44
   CLASS (10) 47 48 49
-  CREATE (11) 
-  DESCRIBE (12) 26 27
-  "*" (13) 15
-  "/" (14) 16
-  "+" (15) 17
-  "-" (16) 18
-  "<" (17) 19
-  ">" (18) 20
-  "?" (19) 31
-  "=" (20) 29 53
-  ";" (21) 5 6 50 51
-  "{" (22) 10 11 47 48 49
-  "}" (23) 10 11 47 48 49
-  ":" (24) 31
-  "(" (25) 32
-  ")" (26) 32
-  "[" (27) 40 41 43 44 49
-  "]" (28) 40 41 43 44 49
-  "," (29) 46
-  "." (30) 52 53
+  DESCRIBE (11) 26 27
+  "*" (12) 15
+  "/" (13) 16
+  "+" (14) 17
+  "-" (15) 18
+  "<" (16) 19
+  ">" (17) 20
+  "?" (18) 31
+  "=" (19) 29 53
+  ";" (20) 5 6 50 51
+  "{" (21) 10 11 47 48 49
+  "}" (22) 10 11 47 48 49
+  ":" (23) 31
+  "(" (24) 32
+  ")" (25) 32
+  "[" (26) 40 41 43 44 49
+  "]" (27) 40 41 43 44 49
+  "," (28) 46
+  "." (29) 52 53
 
 --------- State ---------
 

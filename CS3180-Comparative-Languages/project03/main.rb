@@ -6,14 +6,11 @@
 #
 # Tested with Ruby v2.3.0
 
-# require "pry"
-# require "pry-byebug"
+require "./lib/nodes"
+require "./lib/scanner"
+require "./lib/parser"
 
-require "./scanner"
-require "./nodes"
-require "./parser"
-
-module Project02
+module Project03
 
   initial_input = ARGV.length > 0 ? ARGF.read : nil 
 
@@ -24,11 +21,6 @@ module Project02
     else
       print "Project02> "
       input = STDIN.gets.chomp
-
-      # if "pry" == input
-      #   binding.pry
-      # end
-
     end
     
     break if input.empty?
@@ -45,7 +37,6 @@ module Project02
       # print "\n"
 
       # evalute the tree
-      # byebug
       result = root_node.evaluate
 
       # if we parsed an input file, let people know what got defined

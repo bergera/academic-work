@@ -1,12 +1,12 @@
 ##
 # Andrew Berger
-# Project02
+# Project03
 # CS 3180
 # Spring 2016
 #
 # Tested with Ruby v2.3.0
 
-module Project02
+module Project03
   module Scanner
 
     class Value
@@ -48,7 +48,6 @@ module Project02
       }
 
       KEYWORDS = ["while", "print", "if", "else", "function", "describe", "class", "create"]
-      # LITERALS = [";", "(", ")", "{", "}", "+", "-", "*", "/", "<", ">", "=", "?", ":"]
 
       attr_reader :tokens
 
@@ -64,8 +63,6 @@ module Project02
           next_token
           return @tokens if @error
         end
-
-        # eof_token
 
         @tokens
       end
@@ -88,11 +85,6 @@ module Project02
         return last_token if symbol_token
         return last_token if string_token
         return last_token if literal_token
-      end
-
-      def error_token
-        @error = true
-        puts "Syntax error: `#{@input[@i]}'"
       end
 
       ##
@@ -152,15 +144,6 @@ module Project02
           value_token(match.to_s, match.to_s)
         end
       end
-      # def literal_token
-      #   LITERALS.each do |literal|
-      #     return true if match_literal(literal) do |match|
-      #       literal = match.to_s
-      #       value_token(literal, literal)
-      #     end
-      #   end
-      #   return false
-      # end
 
       ##
       # Attempts to match +symbol+. If a match is found, passes the match to
@@ -179,6 +162,8 @@ module Project02
         end
       end
 
+      ##
+      # Matches an arbitrary literal string.
       def match_literal(literal)
         return false unless /\A(#{Regexp.quote(literal)})/.match(@input[@i..-1]) do |match|
           if block_given?
