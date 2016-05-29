@@ -1,20 +1,14 @@
 ##
 # Andrew Berger
-# Project02
+# Project03
 # CS 3180
 # Spring 2016
 #
 # Tested with Ruby v2.3.0
 
-require "pry"
-require "pry-byebug"
+require "./lib/scope"
 
-require "./extensions"
-require "./scope"
-
-# require "./procs"
-
-module Project02
+module Project03
 
   ##
   # A parse tree node with support for interpretation.
@@ -22,8 +16,8 @@ module Project02
 
     attr_accessor :value, :children, :proc, :parent, :type
 
-    # Initialize with global scope
-    @@scope_chain = ScopeChain.new(nil)
+    # Initialize with a global scope
+    @@scope_chain = ScopeChain.new
 
     def initialize(value: nil, children: nil, scope_chain: nil, type: :Empty)
       @value = value
@@ -34,6 +28,8 @@ module Project02
       self.scope_chain = scope_chain || @@scope_chain
     end
 
+    ##
+    # If a Proc is defined for the given type, sets as @proc, otherwise sets Procs.Value_proc as @proc.
     def type=(type)
       @type = type
 
@@ -125,4 +121,5 @@ module Project02
     end
 
   end # end Node
+
 end # end module

@@ -1,3 +1,14 @@
+##
+# Andrew Berger
+# Project03
+# CS 3180
+# Spring 2016
+#
+# Tested with Ruby v2.3.0
+# 
+# Taken from Ruby on Rail's ActiveSupport core extensions.
+# https://github.com/rails/rails/tree/master/activesupport/lib/active_support/core_ext
+
 class Object
 
   # Can you safely dup this object?

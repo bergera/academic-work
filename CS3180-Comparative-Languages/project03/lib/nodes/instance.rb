@@ -1,18 +1,12 @@
 ##
 # Andrew Berger
-# Project02
+# Project03
 # CS 3180
 # Spring 2016
 #
 # Tested with Ruby v2.3.0
 
-require "pry"
-require "pry-byebug"
-
-require "./extensions"
-# require "./scope"
-
-module Project02
+module Project03
 
   class Instance < Node
 
@@ -27,8 +21,6 @@ module Project02
         @scope_chain = @klass.scope_chain.deep_dup
         @scope = @scope_chain.tail
 
-        # binding.pry
-
         # inject correct _this
         @scope_chain.overwrite(:_this, self)
 
@@ -38,53 +30,34 @@ module Project02
 
         # tediously set the correct scope_chain on all the functions in the scope_chain
         # because they're still pointing at the klass's scope_chain
-        # populate_members
-        correct_member_scope_chains(@scope_chain.tail)
+        correct_member_scope_chains
 
-        # check constructor arity vs argument number
-        # binding.pry
-        if @klass.creator.nil?
-          # if we have a super_klass, call its constructor
-          creator = nil
-          if !@klass.super_klass.nil?
-            # creator = @klass.super_klass.resolve_creator
-          end
-        else
+        if !@klass.creator.nil?
           creator = @scope_chain.access(:_creator) # we want OUR creator
-
-          # @scope_chain.describe
-
-          # binding.pry
 
           values = [*values]
 
+          # check constructor arity vs argument number
           if values.length != creator.params.length
             raise StandardError, "wrong number of arguments (given #{values.length}, expected #{creator.params.length})"
           end
 
-          if creator.params.length > 0
-            # inject the initial values into the creator and evaluate it
-            # binding.pry
-            creator.body.type = :FunctionBody
+          # inject the initial values into the creator
+          if creator.params && creator.params.length > 0
             creator.body.children[1] = values
-            creator.body.evaluate
           end
+
+          # evaluate the creator
+          creator.body.type = :FunctionBody
+          creator.body.evaluate
         end
       end
     end
 
-    def populate_members
-      # puts "::populate_members"
-      @klass.members.each do |symbol, function|
-        # binding.pry
-        puts ":: populate_members #{symbol}"
-        function.scope_chain = @scope_chain
-        
-        @scope_chain.assign_local(symbol, function)
-      end
-    end
-
-    def correct_member_scope_chains(scope)
+    ##
+    # Ensure all the member Functions in our scope_chain have the correct scope_chain set,
+    # so that we can be sure, for example, they have the correct _this and _class and _super.
+    def correct_member_scope_chains(scope=@scope_chain.tail)
       scope.locals.each do |key, val|
         if val.instance_of?(Function)
           val.scope_chain = @scope_chain
@@ -96,6 +69,8 @@ module Project02
       end
     end
 
+    ##
+    # Instances cannot be deeply duplicated. Just cuz.
     def deep_dup
       self
     end
@@ -103,19 +78,18 @@ module Project02
   end # end Instance
 
   class Procs
+
     ##
-    #
+    # Evaluating an Instance returns the Instance.
     def self.Instance_proc
       self.Self_proc
     end
 
     ##
-    #
+    # Used to access a symbol defined on an Instance. E.g. _this.name, foo.bar, etc.
     def self.InstanceMemberAccess_proc
       lambda do |node|
         instance = node.children[0].evaluate
-
-        # binding.pry
 
         if !instance.instance_of?(Instance)
           raise StandardError, "wrong type (given #{instance.class}, expected Instance)"
@@ -133,13 +107,10 @@ module Project02
     end
 
     ##
-    #
+    # Used to assign a symbol defined on an Instance. E.g. _this.name="foo", foo.bar=function{}, etc.
     def self.InstanceMemberAssignment_proc
       lambda do |node|
-      # puts "::instance_member_assignment_proc"
         instance = node.children[0].evaluate
-
-        # binding.pry
 
         if !instance.instance_of?(Instance)
           raise StandardError, "wrong type (expected Instance)"
@@ -150,18 +121,7 @@ module Project02
           node.children[1].scope_chain = instance.scope_chain
         end
 
-        # instance.scope_chain.describe
-        # binding.pry
-
-        # puts "::instance_member_assignment_proc"
-        # instance.scope_chain.describe
-
-
         instance.scope.assign_local(node.value, node.children[1].evaluate)
-
-        # puts "::instance_member_assignment_proc"
-        # instance.scope_chain.describe
-
       end
     end
 

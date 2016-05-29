@@ -1,21 +1,12 @@
 ##
 # Andrew Berger
-# Project02
+# Project03
 # CS 3180
 # Spring 2016
 #
 # Tested with Ruby v2.3.0
 
-require "pry"
-require "pry-byebug"
-
-require "./extensions"
-require "./scope"
-
-# require "./node"
-# require "./procs"
-
-module Project02
+module Project03
 
   ##
   # Functions all day.
@@ -47,7 +38,6 @@ module Project02
  
     def invoke(arguments)
       arguments = [*arguments]
-      # binding.pry
 
       if @params.length != arguments.length
         raise StandardError, "wrong number of arguments (given #{arguments.length}, expected #{@params.length})"
@@ -59,17 +49,16 @@ module Project02
       return @children[0].evaluate
     end
 
-    ##
-    #
     def deep_dup
       Function.new(body: @body.deep_dup, params: @params.deep_dup)
     end
 
   end # end Function
 
+  ##
+  # Function semantics.
   class Procs
-    ##
-    #
+
     def self.FunctionDefinition_proc
       lambda do |node|
         # giving the body block a special @type lets us generate closures in Procs::block_proc.
@@ -82,12 +71,10 @@ module Project02
       end
     end
 
-    ##
-    #
     def self.FunctionBody_proc
       self.Block_proc
     end
 
-  end
+  end # end Procs
 
 end # end module

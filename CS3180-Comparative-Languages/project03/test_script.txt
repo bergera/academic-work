@@ -1,7 +1,33 @@
+// Andrew Berger
+// Project03
+// CS 3180
+// Spring 2016
+
 // Everything is anonymous except variables.
 // Function invocation and object instantiation by variable access only.
 
-foo = function {}; // a do-nothing function
+// SYMBOLs and NUMs
+foo = 5;
+print foo; // => 5.0
+
+// ternary operator
+foo = 1;
+bar = foo > 0 ? "greater than 0" : "not greater than 0";
+print bar; // => greater than 0
+
+foo = -1;
+foo = foo > 0 ? "greater than 0" : "not greater than 0";
+print foo; // => not greater than 0
+
+// while loops
+i = 5;
+while i > 0 {
+  print i;
+  i = i - 1;
+};
+
+// a do-nothing function
+foo = function {};
 print foo[]; // =>
 
 // a function with a body
@@ -16,7 +42,7 @@ print baz[5]; // => 6.0 (all numbers are Floats)
 foo = 10;
 bar = function { foo; };
 print bar[]; // => 10.0
-print foo = 0;
+print foo = 0; // => 0.0
 print bar[]; // => 10.0
 
 // currying with inner functions and closures
@@ -66,7 +92,7 @@ cat = class [animal] {
   // overwriting super class function
   speak = function {
     if _this.isFriendly {
-      print _this.name + "says: ";
+      print _this.name + " says: ";
       _super.speak[];
     } else {
       print "GO AWAY";
